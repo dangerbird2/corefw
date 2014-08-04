@@ -24,13 +24,21 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+
+
 #include <string.h>
 #include <limits.h>
 
+
+
+//#ifndef EMSCRIPTEN
 #include <sys/stat.h>
+//#endif
 
 #include <fcntl.h>
 #include <unistd.h>
+
+
 
 #include "stream.h"
 #include "file.h"

@@ -7,7 +7,6 @@ SRCS = array.c		\
        box.c		\
        class.c		\
        double.c		\
-       file.c		\
        int.c		\
        map.c		\
        object.c		\
@@ -15,6 +14,7 @@ SRCS = array.c		\
        refpool.c	\
        stream.c		\
        string.c		\
+       file.c 		\
        tcpsocket.c
 
 INCLUDES = ${SRCS:.c=.h}	\

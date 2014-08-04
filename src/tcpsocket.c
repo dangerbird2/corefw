@@ -31,11 +31,15 @@
 #include <string.h>
 #include <inttypes.h>
 
+#ifndef EMSCRIPTEN
+
 #include <unistd.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
+
+
 
 #include "stream.h"
 #include "tcpsocket.h"
@@ -150,10 +154,32 @@ cfw_tcpsocket_connect(CFWTCPSocket *sock, const char *host, uint16_t port)
 	return (sock->fd != -1);
 }
 
+
 static CFWClass class = {
 	.name = "CFWTCPSocket",
 	.size = sizeof(CFWTCPSocket),
 	.ctor = ctor,
 	.dtor = dtor
 };
+
+#else
+
+#include "class.h"
+#include <stdio.h>
+
+static bool ctor(void *ptr, va_list args)
+{
+	fprintf(stderr, "ERROR: CFWClass cfw_tcpsocket not compatible with emscripten");
+	return false;
+}
+
+static CFWClass class = {
+	.name = "CFWTCPSocket_NOT_IMPLEMENTED!",
+	.size = sizeof(char),
+	.ctor = ctor,
+	.dtor = NULL
+};
+
+
+#endif
 CFWClass *cfw_tcpsocket = &class;
